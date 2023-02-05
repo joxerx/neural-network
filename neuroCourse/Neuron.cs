@@ -10,7 +10,6 @@ namespace neuroCourse
     {
         private double[] _input;
         private double[] _weight;
-        private double _output;
         private double _bias;
         private Func<double, double> activationFunc;
 
@@ -48,6 +47,19 @@ namespace neuroCourse
                 sum += _input[i] * _weight[i];
 
             return sum + _bias;
+        }
+        public double Activate()
+        {
+            return activationFunc(Summator());
+        }
+
+        public void SetWeights(double[] weight)
+        {
+            _weight = weight;
+        }
+        public void SetBias(double bias)
+        {
+            _bias = bias;
         }
     }
 }
