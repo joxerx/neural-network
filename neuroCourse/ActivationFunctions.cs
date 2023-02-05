@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -32,6 +33,14 @@ namespace neuroCourse
                 return value;
             else
                 return 0;
+        }
+        static public double Linear(double value)
+        {
+            return value;
+        }
+        static public double Gauss(double value)
+        {
+            return Math.Exp(-Math.Pow(value, 2));
         }
     }
 }
