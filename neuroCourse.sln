@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33213.308
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "neuroCourse", "neuroCourse\neuroCourse.csproj", "{89773A2F-919E-4B75-A9EB-6A22E34452AD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "kohonenNetwork", "kohonenNetwork\kohonenNetwork.csproj", "{60089026-3D73-45A1-9FBB-DF17DE0489BB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{89773A2F-919E-4B75-A9EB-6A22E34452AD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89773A2F-919E-4B75-A9EB-6A22E34452AD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89773A2F-919E-4B75-A9EB-6A22E34452AD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60089026-3D73-45A1-9FBB-DF17DE0489BB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60089026-3D73-45A1-9FBB-DF17DE0489BB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60089026-3D73-45A1-9FBB-DF17DE0489BB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60089026-3D73-45A1-9FBB-DF17DE0489BB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

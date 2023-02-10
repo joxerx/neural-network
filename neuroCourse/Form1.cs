@@ -3,7 +3,7 @@ namespace neuroCourse
     public partial class Form1 : Form
     {
         string filePath = string.Empty;
-
+        LayerNetwork? network;
         public Form1()
         {
             InitializeComponent();
@@ -32,10 +32,10 @@ namespace neuroCourse
 
         private void trainBtn_Click(object sender, EventArgs e)
         {
-            int[] layer_sizes = { 4, 10, 3 };
+            int[] layer_sizes = { 4, 10, Convert.ToInt32(numCategories) };
             Func<double, double>[] funcs = { ActivationFunctions.Sigmoid, ActivationFunctions.Sigmoid, ActivationFunctions.Sigmoid };
-            LayerNetwork network = new LayerNetwork(4, 3, layer_sizes, funcs);
-            network.Train("trainset.txt", 1000, 0.01);
+            network = new LayerNetwork(4, 3, layer_sizes, funcs);
+            network.Train("trainset.txt", Convert.ToInt32(numEpochs.Value), Convert.ToDouble(learningSpeed));
             double[] input = new double[] { 6.3, 2.9, 5.6, 1.8}; //2
             double[] input1 = new double[] { 5.7, 4.4, 1.5, 0.4}; //0
             network.SetInput(input);

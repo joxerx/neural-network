@@ -117,7 +117,7 @@
             this.numCategories.Size = new System.Drawing.Size(83, 23);
             this.numCategories.TabIndex = 8;
             this.numCategories.Value = new decimal(new int[] {
-            2,
+            4,
             0,
             0,
             0});
