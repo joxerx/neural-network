@@ -8,9 +8,9 @@ namespace neuroCourse
 {
     internal class Neuron
     {
-        private double[] _input;
-        private double[] _weight;
-        private double _bias;
+        public double[] _input;
+        public double[] _weight;
+        public double _bias;
         private Func<double, double> activationFunc;
 
         public Neuron(int size, Func<double, double> ActivationFunc)
@@ -32,14 +32,14 @@ namespace neuroCourse
             Random random = new Random();
 
             for (int i = 0; i < _weight.Length; i++)
-                _weight[i] = random.NextDouble() + 1;
+                _weight[i] = random.NextDouble();
         }
         private void RandomizeBias()
         {
             Random random = new Random();
-            _bias = random.NextDouble() + 1;
+            _bias = random.NextDouble();
         }
-        private double Summator()
+        public double Summator()
         {
             double sum = 0;
 

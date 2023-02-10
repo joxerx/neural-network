@@ -8,7 +8,7 @@ namespace neuroCourse
 {
     internal class NeuronLayer
     {
-        private List<Neuron> _neurons = new List<Neuron>();
+        public List<Neuron> _neurons = new List<Neuron>();
         private double[] _input;
         private double[] _output;
         public NeuronLayer(int size, int input_size, Func<double, double> ActivationFunc)
@@ -36,6 +36,21 @@ namespace neuroCourse
         {
             Compute();
             return _output;
+        }
+
+        public void SameWeightsAndBias_test()
+        {
+            double[] weights = new double[_input.Length];
+            Random random = new Random();
+
+            for (int i = 0; i < _input.Length; i++)
+                weights.Append(random.NextDouble() + 1);
+
+            foreach (Neuron neuron in _neurons)
+            {
+                neuron.SetWeights(weights);
+                neuron.SetBias(0.1);
+            }
         }
     }
 }

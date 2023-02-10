@@ -27,6 +27,10 @@ namespace neuroCourse
         {
             return 1 / (1 + Math.Exp(-value));
         }
+        static public double DifSigmoid(double value)
+        {
+            return Sigmoid(value) * (1 - Sigmoid(value));
+        }
         static public double HalfLinear(double value)
         {
             if (value > 0)
