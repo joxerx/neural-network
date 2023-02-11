@@ -4,6 +4,7 @@ namespace neuroCourse
     {
         string filePath = string.Empty;
         LayerNetwork? network;
+
         public Form1()
         {
             InitializeComponent();
