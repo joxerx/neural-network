@@ -54,13 +54,12 @@ namespace neuroCourse
         public void Train(string file_path, int epochs, double step)
         {
             StreamWriter sw = new StreamWriter("out.txt");
-            
-                double[] loss = new double[epochs];
-                double l_error = 0;
-                for (int i = 0; i < epochs; i++)
+            double[] loss = new double[epochs];
+            double l_error = 0;
+            for (int i = 0; i < epochs; i++)
+            {
+                using (StreamReader sr = new StreamReader(file_path))
                 {
-                    using (StreamReader sr = new StreamReader(file_path))
-                    {
                     string? line;
                     while ((line = sr.ReadLine()) != null)
                     {
@@ -71,9 +70,8 @@ namespace neuroCourse
                         int index_result = Convert.ToInt32(train_data[^1]);
                         double[] real_output = GetOutput();
                         for (int z=0;z<real_output.Length; z++)
-                        {
                             sw.Write(real_output[z]);
-                        }
+
                         sw.WriteLine('X');
                         double[] wanted_output = GetWantedOutputs(index_result, _output.Length);
 
@@ -93,8 +91,8 @@ namespace neuroCourse
                             double[] local_gradient = new double[_layers[^l]._neurons.Count];
                             for (int m = 0; m < _layers[^l]._neurons.Count; m++)
                             {
-                               double temp_sum = 0.0;
-                               Neuron neuron = _layers[^l]._neurons[m];
+                                double temp_sum = 0.0;
+                                Neuron neuron = _layers[^l]._neurons[m];
                                 for (int n = 0; n < previous_gradient.Length; n++)
                                     temp_sum += previous_gradient[n] * _layers[^(l - 1)]._neurons[n]._weight[m];
                                 local_gradient[m] = GradientForSigmoid(temp_sum, neuron.Activate());
@@ -103,27 +101,12 @@ namespace neuroCourse
                                 neuron._bias -= step * previous_gradient.Sum();
                             }
                             previous_gradient = local_gradient;
-                        }
-                        /*double[] last_gradient = new double[_layers[0]._neurons.Count];
-                        for (int m = 0; m < _layers[0]._neurons.Count; m++)
-                        {
-                            double temp_sum = 0.0;
-                            Neuron neuron = _layers[0]._neurons[m];
-                            for (int n = 0; n < previous_gradient.Length; n++)
-                                temp_sum += previous_gradient[n] * _layers[1]._neurons[n]._weight[m];
-                            last_gradient[m] = GradientForSigmoid(temp_sum, neuron.Activate());
-                            for (int k = 0; k < neuron._weight.Length; k++)
-                                neuron._weight[k] -= step * last_gradient[m] * _input[k];
-                            neuron._bias -= step * previous_gradient.Sum();
-
-                        }*/
-                        
+                        }   
                     }
                     loss[i] = l_error;
-                }
-                
+                }     
             }
-            sw.Close();
+        sw.Close();
 
         }
         private double[] GetWantedOutputs(int index, int size)

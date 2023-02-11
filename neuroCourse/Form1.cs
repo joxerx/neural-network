@@ -32,45 +32,17 @@ namespace neuroCourse
 
         private void trainBtn_Click(object sender, EventArgs e)
         {
-            int[] layer_sizes = { 4, 10, Convert.ToInt32(numCategories) };
+            int[] layer_sizes = { 4, 10, Convert.ToInt32(numCategories.Value) };
             Func<double, double>[] funcs = { ActivationFunctions.Sigmoid, ActivationFunctions.Sigmoid, ActivationFunctions.Sigmoid };
-            network = new LayerNetwork(4, 3, layer_sizes, funcs);
-            network.Train("trainset.txt", Convert.ToInt32(numEpochs.Value), Convert.ToDouble(learningSpeed));
-            double[] input = new double[] { 6.3, 2.9, 5.6, 1.8}; //2
-            double[] input1 = new double[] { 5.7, 4.4, 1.5, 0.4}; //0
-            network.SetInput(input);
-
-            string res = "";
-            foreach (double elem in input)
-            {
-                res += Convert.ToString(elem) + "\t";
-            }
-            res += "ответ: ";
-            double[] answer = network.GetOutput();
-            double max = answer.Max();
-            int indx = Array.IndexOf(answer, max);
-            res += Convert.ToString(indx) + "\n\r";
-
-
-            res += '\n';
-            network.SetInput(input1);
-            foreach (double elem in input1)
-            {
-                res += Convert.ToString(elem) + "\t";
-            }
-            res += "ответ: ";
-            answer = network.GetOutput();
-            max = answer.Max();
-            indx = Array.IndexOf(answer, max);
-            res += Convert.ToString(indx) + "\n\r";
-            textBox1.Text += res;
+            network = new LayerNetwork(Convert.ToInt32(numParameters.Value), 3, layer_sizes, funcs);
+            network.Train("trainset.txt", Convert.ToInt32(numEpochs.Value), Convert.ToDouble(learningSpeed.Value));
         }
 
         private void choseTrainsetBtn_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.InitialDirectory = "c:\\";
+                openFileDialog.InitialDirectory = "C:\\Users\\user\\Desktop\\neuroCourse\\neuroCourse\\bin\\Debug\\net7.0-windows";
                 openFileDialog.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
                 openFileDialog.FilterIndex = 2;
                 openFileDialog.RestoreDirectory = true;
@@ -82,6 +54,23 @@ namespace neuroCourse
                     filePathBox.Text = filePath;
                 }
             }
+        }
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            
+            string[] input_string = textBox1.Text.Split(';');
+            double[] input = new double [input_string.Length];
+            for (int i = 0; i < input.Length; i++) 
+                input[i] = Convert.ToDouble(input_string[i]);
+
+            network?.SetInput(input);
+            double[] result = network.GetOutput();
+            double max = result.Max();
+            int indx = Array.IndexOf(result, max);
+
+            textBox1.Text += " категория: " + Convert.ToString(indx);
+
         }
     }
 }
