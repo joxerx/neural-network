@@ -16,36 +16,27 @@ namespace kohonenNetwork
             for (int i = 0; i < numClusters; i++)
                 _neurons.Add(new KohonenNeuron(inputSize));
         }
-        public void SetInput(double[] input)
+
+        public void SelfTrain(int epochs, double learningSpeed, string filePath)
         {
-            _input = input;
-        }
-        public void Train(int epochs, double learningSpeed, string filePath)
-        {
-            double[][] trainSet = new double[System.IO.File.ReadAllLines(filePath).Length][];
-            using (StreamReader sr = new StreamReader(filePath))
+            double[][] dataset = PrepareDataset(filePath);
+            
+
+            for (int i =0; i < epochs; i++)
             {
-                string? line;
-                int line_count = 0;
-                while ((line = sr.ReadLine()) != null)
+                for (int line = 0; line < dataset.Length; line++)
                 {
-                    string[] input_string = line.Split(';');
-                    double[] input_double = new double[input_string.Length];
-                    for (int j = 0; j < _input.Length; j++)
-                        input_double[j] = Convert.ToDouble(input_string[j]);
-                    trainSet[line_count] = input_double;
-                    line_count++;
+                    _input = dataset[line];
+                    int indexMin = FindClosestCluster();
+                    for (int j = 0; j < _neurons[indexMin]._weight.Length; j++)
+                        _neurons[indexMin]._weight[j] += learningSpeed * (_input[j] - _neurons[indexMin]._weight[j]);
                 }
             }
-            NormalizeDataset(trainSet);
-
-
-            for (int i = 0; i < epochs; i++)
+            for (int line = 0; line < dataset.Length; line++)
             {
-                int indexMin = FindClosestCluster();
+                _input = dataset[line];
+                MessageBox.Show(Convert.ToString(FindClosestCluster()));
 
-                for (int j = 0; j < _neurons[indexMin]._weight.Length; j++)
-                    _neurons[indexMin]._weight[j] += learningSpeed * (_input[j] - _neurons[indexMin]._weight[j]);
             }
         }
 
@@ -67,9 +58,8 @@ namespace kohonenNetwork
         }
 
 
-        public void NormalizeDataset(double[][] dataset)
+        private void NormalizeDataset(double[][] dataset)
         {
-            //double[][] result = new double[dataset.Length][];
             double min;
             double max;
             for (int col = 0; col < dataset[0].Length; col++)
@@ -87,9 +77,26 @@ namespace kohonenNetwork
                     dataset[line][col] = (-1) + (dataset[line][col] - min) / (max - min) * 2;
                 }
             }
-
-            //return result;
         }
-
+        private double[][] PrepareDataset(string filePath)
+        {
+            double[][] dataset = new double[System.IO.File.ReadAllLines(filePath).Length][];
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                string? line;
+                int line_count = 0;
+                while ((line = sr.ReadLine()) != null)
+                {
+                    string[] input_string = line.Split(';');
+                    double[] input_double = new double[input_string.Length];
+                    for (int j = 0; j < _input.Length; j++)
+                        input_double[j] = Convert.ToDouble(input_string[j]);
+                    dataset[line_count] = input_double;
+                    line_count++;
+                }
+            }
+            NormalizeDataset(dataset);
+            return dataset;
+        } 
     }
 }
