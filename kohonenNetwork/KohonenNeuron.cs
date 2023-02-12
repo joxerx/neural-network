@@ -37,6 +37,10 @@ namespace kohonenNetwork
         {
             _input = input;
         }
+        public void SetWeight(double[] weight)
+        {
+            _weight = weight;
+        }
         public double Distance()
         {
             double res = 0;

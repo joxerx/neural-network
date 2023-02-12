@@ -20,10 +20,9 @@ namespace kohonenNetwork
 
         public void SelfTrain(double delta, double learningSpeed, string filePath)
         {
-            double[][] dataset = PrepareDataset(filePath);
-            
+            double[][] dataset = convertTxtToDataset(filePath);
 
-            while(learningSpeed> 0)
+            while (learningSpeed > 0)
             {
                 for (int line = 0; line < dataset.Length; line++)
                 {
@@ -42,11 +41,62 @@ namespace kohonenNetwork
                     _output[idCluster] += ", " + (line + 1);
                 else
                     _output[idCluster] = "Включает в себя образцы с номерами: " + (line + 1);
-
             }
         }
+        public void SelfOrganizing(double delta, double learningSpeed, double criticalDist, string filePath)
+        {
+            double[][] dataset = convertTxtToDataset(filePath);
+            _input = dataset[0];
+            //_neurons.Add(new KohonenNeuron(_input.Length));
+            _neurons[0].SetWeight(_input);
 
-        public int FindClosestCluster()
+
+
+            while (learningSpeed > 0)
+            {
+                List<int> idsUsedNeurons = new List<int>();
+                for (int line = 0; line < dataset.Length; line++)
+                {
+                    _input = dataset[line];
+                    int idCluster = FindClosestCluster();
+                    if (_neurons[idCluster].Distance() <= criticalDist)
+                    {
+                        for (int j = 0; j < _neurons[idCluster]._weight.Length; j++)
+                        {
+                            _neurons[idCluster]._weight[j] += learningSpeed * (_input[j] - _neurons[idCluster]._weight[j]);
+                            idsUsedNeurons.Add(idCluster);
+                        }
+                    }           
+                    else
+                    {
+                        _neurons.Add(new KohonenNeuron(_input.Length));
+                        _neurons[^1].SetWeight(_input);
+                        idsUsedNeurons.Add(_neurons.Count - 1);
+                    }
+                }
+
+                for (int i = 0; i< _neurons.Count; i++)
+                {
+                    if (!idsUsedNeurons.Contains(i))
+                    {
+                        _neurons.RemoveAt(i);
+                        i--;
+                    }
+                       
+                }
+                learningSpeed -= delta;
+            }
+            for (int line = 0; line < dataset.Length; line++)
+            {
+                _input = dataset[line];
+                int idCluster = FindClosestCluster();
+                if (_output.ContainsKey(idCluster))
+                    _output[idCluster] += ", " + (line + 1);
+                else
+                    _output[idCluster] = "Включает в себя образцы с номерами: " + (line + 1);
+            }
+        }
+        private int FindClosestCluster()
         {
             _neurons[0].SetInput(_input);
             double min_dist = _neurons[0].Distance();
@@ -62,7 +112,6 @@ namespace kohonenNetwork
             }
             return index;
         }
-
         public Dictionary<int, string> getOutput()
         {
             return _output;
@@ -87,7 +136,7 @@ namespace kohonenNetwork
                 }
             }
         }
-        private double[][] PrepareDataset(string filePath)
+        private double[][] convertTxtToDataset(string filePath)
         {
             double[][] dataset = new double[System.IO.File.ReadAllLines(filePath).Length][];
             using (StreamReader sr = new StreamReader(filePath))

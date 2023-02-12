@@ -30,17 +30,18 @@
         {
             this.numClusters = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.selfTrain = new System.Windows.Forms.Button();
             this.outputBox = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.numParams = new System.Windows.Forms.NumericUpDown();
+            this.selfOrganise = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numClusters)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.numParams)).BeginInit();
             this.SuspendLayout();
             // 
             // numClusters
             // 
-            this.numClusters.Location = new System.Drawing.Point(82, 7);
+            this.numClusters.Location = new System.Drawing.Point(188, 7);
             this.numClusters.Minimum = new decimal(new int[] {
             2,
             0,
@@ -58,21 +59,21 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(118, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(64, 15);
             this.label1.TabIndex = 1;
             this.label1.Text = "Кластеров";
             // 
-            // button1
+            // selfTrain
             // 
-            this.button1.Location = new System.Drawing.Point(505, 5);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
+            this.selfTrain.Location = new System.Drawing.Point(12, 7);
+            this.selfTrain.Name = "selfTrain";
+            this.selfTrain.Size = new System.Drawing.Size(100, 23);
+            this.selfTrain.TabIndex = 2;
+            this.selfTrain.Text = "Распределить";
+            this.selfTrain.UseVisualStyleBackColor = true;
+            this.selfTrain.Click += new System.EventHandler(this.button1_Click);
             // 
             // outputBox
             // 
@@ -87,7 +88,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(208, 9);
+            this.label2.Location = new System.Drawing.Point(314, 9);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(75, 15);
             this.label2.TabIndex = 4;
@@ -95,7 +96,7 @@
             // 
             // numParams
             // 
-            this.numParams.Location = new System.Drawing.Point(289, 7);
+            this.numParams.Location = new System.Drawing.Point(395, 7);
             this.numParams.Minimum = new decimal(new int[] {
             2,
             0,
@@ -110,15 +111,26 @@
             0,
             0});
             // 
+            // selfOrganise
+            // 
+            this.selfOrganise.Location = new System.Drawing.Point(521, 7);
+            this.selfOrganise.Name = "selfOrganise";
+            this.selfOrganise.Size = new System.Drawing.Size(139, 23);
+            this.selfOrganise.TabIndex = 6;
+            this.selfOrganise.Text = "Самоорганизация";
+            this.selfOrganise.UseVisualStyleBackColor = true;
+            this.selfOrganise.Click += new System.EventHandler(this.selfOrganise_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(672, 341);
+            this.Controls.Add(this.selfOrganise);
             this.Controls.Add(this.numParams);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.outputBox);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.selfTrain);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numClusters);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
@@ -135,9 +147,10 @@
 
         private NumericUpDown numClusters;
         private Label label1;
-        private Button button1;
+        private Button selfTrain;
         private TextBox outputBox;
         private Label label2;
         private NumericUpDown numParams;
+        private Button selfOrganise;
     }
 }
