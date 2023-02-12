@@ -10,8 +10,8 @@ namespace kohonenNetwork
         private void button1_Click(object sender, EventArgs e)
         {
             KohonenNetwork network = new KohonenNetwork(7, 4);
-            network.Train(1000, 0.001, "dataset.txt");
-            using (StreamReader sr = new StreamReader("dataset.txt"))
+            network.Train(1000, 0.001, "dataset1.txt");
+            using (StreamReader sr = new StreamReader("dataset1.txt"))
             {
                 string? line;
                 while ((line = sr.ReadLine()) != null)
