@@ -40,7 +40,7 @@ namespace kohonenNetwork
         public double Distance()
         {
             double res = 0;
-            for (int i = 0; i < _input.Length; i++)
+            for (int i = 0; i < _weight.Length; i++)
             {
                 res += Math.Pow(_input[i] - _weight[i], 2);
             }

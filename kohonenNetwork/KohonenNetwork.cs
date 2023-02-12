@@ -10,6 +10,7 @@ namespace kohonenNetwork
     {
         private List<KohonenNeuron> _neurons = new List<KohonenNeuron>();
         private double[] _input;
+        private Dictionary<int, string> _output = new Dictionary<int, string>();
         public KohonenNetwork(int inputSize, int numClusters)
         {
             _input = new double[inputSize];
@@ -17,12 +18,12 @@ namespace kohonenNetwork
                 _neurons.Add(new KohonenNeuron(inputSize));
         }
 
-        public void SelfTrain(int epochs, double learningSpeed, string filePath)
+        public void SelfTrain(double delta, double learningSpeed, string filePath)
         {
             double[][] dataset = PrepareDataset(filePath);
             
 
-            for (int i =0; i < epochs; i++)
+            while(learningSpeed> 0)
             {
                 for (int line = 0; line < dataset.Length; line++)
                 {
@@ -31,11 +32,16 @@ namespace kohonenNetwork
                     for (int j = 0; j < _neurons[indexMin]._weight.Length; j++)
                         _neurons[indexMin]._weight[j] += learningSpeed * (_input[j] - _neurons[indexMin]._weight[j]);
                 }
+                learningSpeed -= delta;
             }
             for (int line = 0; line < dataset.Length; line++)
             {
                 _input = dataset[line];
-                MessageBox.Show(Convert.ToString(FindClosestCluster()));
+                int idCluster = FindClosestCluster();
+                if (_output.ContainsKey(idCluster))
+                    _output[idCluster] += ", " + (line + 1);
+                else
+                    _output[idCluster] = "Включает в себя образцы с номерами: " + (line + 1);
 
             }
         }
@@ -57,7 +63,10 @@ namespace kohonenNetwork
             return index;
         }
 
-
+        public Dictionary<int, string> getOutput()
+        {
+            return _output;
+        }
         private void NormalizeDataset(double[][] dataset)
         {
             double min;

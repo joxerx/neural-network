@@ -31,7 +31,11 @@
             this.numClusters = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.outputBox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.numParams = new System.Windows.Forms.NumericUpDown();
             ((System.ComponentModel.ISupportInitialize)(this.numClusters)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numParams)).BeginInit();
             this.SuspendLayout();
             // 
             // numClusters
@@ -62,7 +66,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(223, 5);
+            this.button1.Location = new System.Drawing.Point(505, 5);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 2;
@@ -70,17 +74,58 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // outputBox
+            // 
+            this.outputBox.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.outputBox.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.outputBox.Location = new System.Drawing.Point(0, 36);
+            this.outputBox.Multiline = true;
+            this.outputBox.Name = "outputBox";
+            this.outputBox.Size = new System.Drawing.Size(672, 305);
+            this.outputBox.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(208, 9);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(75, 15);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Параметров";
+            // 
+            // numParams
+            // 
+            this.numParams.Location = new System.Drawing.Point(289, 7);
+            this.numParams.Minimum = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            this.numParams.Name = "numParams";
+            this.numParams.Size = new System.Drawing.Size(120, 23);
+            this.numParams.TabIndex = 5;
+            this.numParams.Value = new decimal(new int[] {
+            2,
+            0,
+            0,
+            0});
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(672, 341);
+            this.Controls.Add(this.numParams);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.outputBox);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.numClusters);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.numClusters)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numParams)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -91,5 +136,8 @@
         private NumericUpDown numClusters;
         private Label label1;
         private Button button1;
+        private TextBox outputBox;
+        private Label label2;
+        private NumericUpDown numParams;
     }
 }

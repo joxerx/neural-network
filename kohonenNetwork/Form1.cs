@@ -9,25 +9,14 @@ namespace kohonenNetwork
 
         private void button1_Click(object sender, EventArgs e)
         {
-            KohonenNetwork network = new KohonenNetwork(7, 4);
-            network.SelfTrain(1000, 0.001, "dataset1.txt");
-            /*using (StreamReader sr = new StreamReader("dataset1.txt"))
+            outputBox.Clear();
+            KohonenNetwork network = new KohonenNetwork(Convert.ToInt32(numParams.Value), Convert.ToInt32(numClusters.Value));
+            network.SelfTrain(0.001, 0.3, "dataset1.txt");
+            var output = network.getOutput();
+            foreach (var item in output)
             {
-                string? line;
-                while ((line = sr.ReadLine()) != null)
-                {
-                    string[] input_string = line.Split(';');
-                    double[] _input = new double[input_string.Length];
-                    for (int j = 0; j < _input.Length; j++)
-                        _input[j] = Convert.ToDouble(input_string[j]);
-                    network.SetInput(_input);
-                    //network.NormalizeInput();
-
-
-                    MessageBox.Show(Convert.ToString(network.FindClosestCluster()));
-
-                }
-            }*/
+                outputBox.Text += item.ToString() + '\r' + '\n';
+            }
         }
     }
 }
